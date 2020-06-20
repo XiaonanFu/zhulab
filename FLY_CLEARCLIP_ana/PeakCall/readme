@@ -1,0 +1,46 @@
+###########peak calling for the CLEAR-CLIP reads data
+#step 1: remove the PCR bias based on the random tag
+#clapse rule:
+#the reads mapped to same locus with the same tag code will clapse into one
+#such that read 1: 12345-1_ATG		2R	1	25
+		  #read 2: 23456-2_ATG		2R	1	25
+
+#perl step1_blastClapse.pl -b W01.final >W01_clapseBlast.final
+#perl step1_blastClapse.pl -b W02.final >W02_clapseBlast.final
+#perl step1_blastClapse.pl -b W03.final >W03_clapseBlast.final
+#perl step1_blastClapse.pl -b W04.final >W04_clapseBlast.final
+
+#perl step1_blastClapse.pl -b C01.final >C01_clapseBlast.final
+#perl step1_blastClapse.pl -b C02.final >C02_clapseBlast.final
+#perl step1_blastClapse.pl -b C03.final >C03_clapseBlast.final
+#perl step1_blastClapse.pl -b C04.final >C04_clapseBlast.final
+
+
+
+
+
+
+
+#step 2: combine four steps into one
+#--1> cllapse into region
+#--2> calculate the p-value by ppois
+#--3> spline cubic analysis to define the peak and its height
+#--4> based on FDR to filter the peak and output
+
+#prepare
+#comine the replicates into one for peak calling
+#cat C01_clapseBlast.final C02_clapseBlast.final C03_clapseBlast.final >CW.final
+#cat W01_clapseBlast.final W02_clapseBlast.final W03_clapseBlast.final >WW.final
+
+
+#perl clashcluster_v2_Chead.pl -e dmel-all-r6.17.gtf -c C04_clapseBlast.final -s CH -t dmr6_17.fa -b dme_ann_6_17.txt
+#mv finalclip.txt CH_poiss_finalclip.txt
+
+perl clashcluster_v2_Cwhole.pl -e dmel-all-r6.17.gtf -c CW.final -s CW -t dmr6_17.fa -b dme_ann_6_17.txt
+mv finalclip.txt CW_poiss_finalclip.txt
+
+perl clashcluster_v2_Whead.pl -e dmel-all-r6.17.gtf -c W04_clapseBlast.final -s WH -t dmr6_17.fa -b dme_ann_6_17.txt
+mv finalclip.txt WH_poiss_finalclip.txt
+
+perl clashcluster_v2_Wwhole.pl -e dmel-all-r6.17.gtf -c WW.final -s WW -t dmr6_17.fa -b dme_ann_6_17.txt
+mv finalclip.txt WW_poiss_finalclip.txt
