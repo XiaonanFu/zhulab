@@ -33,14 +33,5 @@
 #cat W01_clapseBlast.final W02_clapseBlast.final W03_clapseBlast.final >WW.final
 
 
-#perl clashcluster_v2_Chead.pl -e dmel-all-r6.17.gtf -c C04_clapseBlast.final -s CH -t dmr6_17.fa -b dme_ann_6_17.txt
+#perl peak_Cluster.pl -e dmel-all-r6.17.gtf -c C04_clapseBlast.final -s CH -t dmr6_17.fa -b dme_ann_6_17.txt
 #mv finalclip.txt CH_poiss_finalclip.txt
-
-perl clashcluster_v2_Cwhole.pl -e dmel-all-r6.17.gtf -c CW.final -s CW -t dmr6_17.fa -b dme_ann_6_17.txt
-mv finalclip.txt CW_poiss_finalclip.txt
-
-perl clashcluster_v2_Whead.pl -e dmel-all-r6.17.gtf -c W04_clapseBlast.final -s WH -t dmr6_17.fa -b dme_ann_6_17.txt
-mv finalclip.txt WH_poiss_finalclip.txt
-
-perl clashcluster_v2_Wwhole.pl -e dmel-all-r6.17.gtf -c WW.final -s WW -t dmr6_17.fa -b dme_ann_6_17.txt
-mv finalclip.txt WW_poiss_finalclip.txt
